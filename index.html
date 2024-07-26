@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/rdn8fde.css" />
+  <style>
+    @font-face {
+      font-family: "Publico Text";
+      src: url("fonts/PublicoText.woff2") format("woff2"),
+        url("fonts/PublicoText.woff") format("woff");
+    }
+
+    a {
+		text-decoration: underline;
+		text-decoration-color: #A5091E;
+		color: #858585;
+  }
+
+  a:hover {
+    cursor: pointer;
+    color: #A5091E	
+  }
+    p {
+      font-family: "Publico Text", sans-serif;
+      font-size: 1.32rem;
+      line-height: 1.48;
+      font-weight: 400;
+    }
+
+    span#fires, span#acres {
+        background:#A5091E;
+        color:white;
+        padding: 3px 6px;
+        border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <p id="fire-data">
+    So far this year, there have been about XXX wildfires, with approximately
+    XXX acres burned, according to data from the National Interagency Fire
+    Center.
+  </p>
+
+  <p>
+    In 2023, a total of about 56,500 wildfires burned approximately 2.7 million acres.
+  </p>
+
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Include PapaParse -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      // Fetch and parse CSV data
+      Papa.parse("outputs/total_fires.csv", {
+        download: true,
+        header: true,
+        complete: function(results) {
+          // Get the latest data (e.g., the first row in the parsed data)
+          var latestData = results.data[0];
+          
+       // Extract and format the values
+       var fires = parseInt(latestData.Fires).toLocaleString();
+          var acres = parseInt(latestData.Acres).toLocaleString();
+          
+          // Update the paragraph with the extracted values
+          $("#fire-data").html(
+            `So far this year, there has been <span id="fires">${fires}</span> wildfires, with <span id="acres">${acres}</span> acres burned, according to data from the <a href="https://www.nifc.gov/fire-information/nfn" target="_blank">National Interagency Fire Center</a>.`
+          );
+        }
+      });
+    });
+  </script>
+</body>
+</html>
