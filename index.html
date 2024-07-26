@@ -1,7 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script
+  type="text/javascript"
+  src="https://pym.nprapps.org/pym.v1.min.js"
+></script>
   
   <!-- Fonts -->
   <link rel="stylesheet" href="https://use.typekit.net/rdn8fde.css" />
@@ -36,8 +38,7 @@
         border-radius: 5px;
     }
   </style>
-</head>
-<body>
+
   <p id="fire-data">
     So far this year, there have been about XXX wildfires, with approximately
     XXX acres burned, according to data from the National Interagency Fire
@@ -74,6 +75,11 @@
         }
       });
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    var pymChild = new pym.Child();
+    pymChild.sendHeight();
+  });
   </script>
-</body>
+
 </html>
