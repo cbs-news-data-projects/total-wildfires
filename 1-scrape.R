@@ -28,3 +28,6 @@ cleaned_table <- table %>%
     Fires = as.numeric(gsub("[^0-9]", "", Fires)),
     Acres = as.numeric(gsub("[^0-9]", "", Acres))
   )
+
+# Write csv
+write.csv(cleaned_table,"outputs/total_fires.csv", row.names = FALSE)
