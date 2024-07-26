@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-  cron: "30 15 * * *" # Runs once a day at 3:30 PM UTC, which is 7:30 AM PST
+    - cron: "30 15 * * *" # Runs once a day at 3:30 PM UTC, which is 7:30 AM PST
   workflow_dispatch:
 
 jobs:
@@ -19,9 +19,8 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: |
-            any::rvest 
-            any::dplyr
-
+            rvest
+            dplyr
       - name: Check out repository
         uses: actions/checkout@v4
 
@@ -32,6 +31,6 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add 1-scrape.R
-          git commit -m 'ran 1-scrape.R' || echo "No changes to commit"
+          git add outputs/total_fires.csv # Replace <result-file> with the actual file(s) you want to commit
+          git commit -m 'Ran 1-scrape.R' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
